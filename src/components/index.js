@@ -1,4 +1,5 @@
 import styled from 'react-emotion';
+import NumericInput from 'react-numeric-input';
 
 export const Wrapper = styled('div')`
   height: 100%;
@@ -63,7 +64,7 @@ export const Button = styled('button')`
   border: 3px solid #ffffff90;
   margin: 0 1rem 0;
 
-  background: transparent;
+  background: ${props => props.selected ? '#ffffff60' : 'transparent'};
   color: #fff;
 
   text-shadow: 1px 1px 2px black;
@@ -90,4 +91,9 @@ export const Container = styled('div')`
   width: 100%;
 
   justify-content: space-between;
+`;
+
+export const StyledNumericInput = styled(NumericInput)`
+  font-size: 36px !important;
+  width: 100px;
 `;

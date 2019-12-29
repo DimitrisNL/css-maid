@@ -10,6 +10,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-github-corner": "^2.1.0",
+    "react-numeric-input": "^2.2.3",
     "react-scripts": "1.1.1"
   },
   "scripts": {

@@ -11,24 +11,44 @@ import {
   Button,
   Container,
   ButtonsRow,
+  StyledNumericInput,
 } from './components';
+
+const whitespaceType = Object.freeze({
+  space: ' ',
+  tab: '\t',
+});
 
 class App extends Component {
   state = {
     userStyles: '',
     formattedStyles: '',
+    numberOfIndents: 2,
+    indentType: whitespaceType.space,
   };
 
   handleInput = e => {
     this.setState({ userStyles: e.target.value });
   };
 
+  handleNumberOfIndentsChange = valueAsNumber => {
+    if (!isFinite(valueAsNumber) || valueAsNumber < 0) return;
+    this.setState({ numberOfIndents: valueAsNumber }, this.formatCSS);
+  };
+
   formatCSS = () => {
     if (this.state.userStyles.trim() === '') return false;
 
-    const formattedStyles = parseCSS(this.state.userStyles);
+    const indentString = this.state.indentType.repeat(this.state.numberOfIndents);
+    const formattedStyles = parseCSS(this.state.userStyles, indentString);
     this.setState({ formattedStyles });
   };
+
+  changeIndentType = indentType => {
+    this.setState({ indentType }, this.formatCSS);
+  };
+  selectSpaces = () => this.changeIndentType(whitespaceType.space);
+  selectTabs = () => this.changeIndentType(whitespaceType.tab);
 
   render() {
     return (
@@ -51,6 +71,11 @@ class App extends Component {
           <CopyToClipboard text={this.state.formattedStyles}>
             <Button>Copy to clipboard</Button>
           </CopyToClipboard>
+
+          <StyledNumericInput min={0} max={100} onChange={this.handleNumberOfIndentsChange} value={this.state.numberOfIndents} />
+          <Button onClick={this.selectSpaces} selected={this.state.indentType === whitespaceType.space}>Spaces</Button>
+          <Button onClick={this.selectTabs} selected={this.state.indentType === whitespaceType.tab}>Tabs</Button>
+          
         </ButtonsRow>
 
         <GithubCorner

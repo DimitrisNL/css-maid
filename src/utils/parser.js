@@ -3,11 +3,11 @@ import gonzales from 'gonzales-pe';
 import Formatter from './formatter';
 import * as CATEGORIES from './properties';
 
-export const parseCSS = (css = '') => {
+export const parseCSS = (css = '', spaceStr = '  ') => {
   try {
     const formatter = new Formatter(CATEGORIES);
     const delimiter = gonzales.createNode({ content: ';', type: 'delimiter' });
-    const space = gonzales.createNode({ content: '  ', type: 'space' });
+    const space = gonzales.createNode({ content: spaceStr, type: 'space' });
     const newLine = gonzales.createNode({ content: '\n', type: 'space' });
 
     let ast = gonzales.parse(css);
